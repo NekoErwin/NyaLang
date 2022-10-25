@@ -1,0 +1,263 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "NyaScript",
+	"patterns": [
+		{ "include": "#control_keywords" },
+		{ "include": "#define_keywords" },
+		{ "include": "#static_call" },
+		{ "include": "#strings" },
+		{ "include": "#comment" },
+		{ "include": "#literal" },
+		{ "include": "#identifiers" }
+		
+	],
+	"repository": {
+		"control_keywords": {
+			"patterns": [{
+				"name": "keyword.control.nyascript",
+				"match": "\\b(if|else|while|for|switch|case|default|label|goto|break|continue|return)\\b"
+			}]
+		},
+		"define_keywords": {
+			"patterns": [
+				{
+					"name": "variable.language.nyascript",
+					"match": "\\b(var|let|const)\\b"
+				},
+				{
+					"name": "storage.type.function.nyascript",
+					"match": "\\b(function|fun|λ)\\b"
+				}
+			]
+		},
+		"static_call": {
+			"patterns": [
+				{
+					"name": "support.function",
+					"match": "\\$.+?\\("
+				}
+			]
+		},
+		"strings": {
+			"name": "string.quoted.double.nyascript",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name":"constant.language.nyascript",
+					"match": "@<.*?>"
+				},
+				{
+					"name": "constant.character.escape.nyascript",
+					"match": "\\\\."
+				}
+			]
+		},
+		"comment": {
+			"patterns": [
+				{ "name": "comment.block.documentation.nyascript", "begin": "//", "end": "\n" },
+				{ "name": "comment.block.documentation.nyascript", "begin": "/\\*", "end": "\\*/" }
+			]
+		},
+		
+		"literal": {
+			"patterns": [
+				{
+					"include": "#numeric-literal"
+				},
+				{
+					"include": "#boolean-literal"
+				},
+				{
+					"include": "#null-literal"
+				},
+				{
+					"include": "#array-literal"
+				},
+				{
+					"include": "#this-literal"
+				}
+			]
+		},
+		"array-literal": {
+			"name": "meta.array.literal.js",
+			"begin": "\\s*(\\[)",
+			"beginCaptures": {
+				"1": {
+					"name": "meta.brace.square.js"
+				}
+			},
+			"end": "\\]",
+			"endCaptures": {
+				"0": {
+					"name": "meta.brace.square.js"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#expression"
+				},
+				{
+					"include": "#punctuation-comma"
+				}
+			]
+		},
+		"numeric-literal": {
+			"patterns": [
+				{
+					"name": "constant.numeric.hex.js",
+					"match": "\\b(?<!\\$)0(?:x|X)[0-9a-fA-F][0-9a-fA-F_]*(n)?\\b(?!\\$)",
+					"captures": {
+						"1": {
+							"name": "storage.type.numeric.bigint.js"
+						}
+					}
+				},
+				{
+					"name": "constant.numeric.binary.js",
+					"match": "\\b(?<!\\$)0(?:b|B)[01][01_]*(n)?\\b(?!\\$)",
+					"captures": {
+						"1": {
+							"name": "storage.type.numeric.bigint.js"
+						}
+					}
+				},
+				{
+					"name": "constant.numeric.octal.js",
+					"match": "\\b(?<!\\$)0(?:o|O)?[0-7][0-7_]*(n)?\\b(?!\\$)",
+					"captures": {
+						"1": {
+							"name": "storage.type.numeric.bigint.js"
+						}
+					}
+				},
+				{
+					"match": "(?x)\n(?<!\\$)(?:\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)| # 1.1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # 1.E+3\n  (?:\\B(\\.)[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|             # .1E+3\n  (?:\\b[0-9][0-9_]*[eE][+-]?[0-9][0-9_]*(n)?\\b)|                 # 1E+3\n  (?:\\b[0-9][0-9_]*(\\.)[0-9][0-9_]*(n)?\\b)|                      # 1.1\n  (?:\\b[0-9][0-9_]*(\\.)(n)?\\B)|                                  # 1.\n  (?:\\B(\\.)[0-9][0-9_]*(n)?\\b)|                                  # .1\n  (?:\\b[0-9][0-9_]*(n)?\\b(?!\\.))                                 # 1\n)(?!\\$)",
+					"captures": {
+						"0": {
+							"name": "constant.numeric.decimal.js"
+						},
+						"1": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"2": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"3": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"4": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"5": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"6": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"7": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"8": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"9": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"10": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"11": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"12": {
+							"name": "meta.delimiter.decimal.period.js"
+						},
+						"13": {
+							"name": "storage.type.numeric.bigint.js"
+						},
+						"14": {
+							"name": "storage.type.numeric.bigint.js"
+						}
+					}
+				}
+			]
+		},
+		"boolean-literal": {
+			"patterns": [
+				{
+					"name": "constant.language.boolean.true.js",
+					"match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))true(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+				},
+				{
+					"name": "constant.language.boolean.false.js",
+					"match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))false(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+				}
+			]
+		},
+		"null-literal": {
+			"name": "constant.language.null.js",
+			"match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))null(?![_$[:alnum:]])(?:(?=\\.\\.\\.)|(?!\\.))"
+		},
+		"this-literal": {
+			"name": "variable.language.this.js",
+			"match": "(?<![_$[:alnum:]])(?:(?<=\\.\\.\\.)|(?<!\\.))(this|self)\\b(?!\\$)"
+		},
+
+		"identifiers": {
+			"patterns": [
+				{
+					"match": "(?x)(?:(?:(\\.)|(\\?\\.(?!\\s*[[:digit:]])))\\s*)?([_$[:alpha:]][_$[:alnum:]]*)(?=\\s*=\\s*(\n  ((async\\s+)?(\n    (function\\s*[(<*]) |\n    (function\\s+) |\n    ([_$[:alpha:]][_$[:alnum:]]*\\s*=>)\n  )) |\n  ((async\\s*)?(\n    ((<\\s*$)|([\\(]\\s*((([\\{\\[]\\s*)?$)|((\\{([^\\{\\}]|(\\{([^\\{\\}]|\\{[^\\{\\}]*\\})*\\}))*\\})\\s*((:\\s*\\{?$)|((\\s*([^<>\\(\\)\\{\\}]|\\<([^<>]|\\<([^<>]|\\<[^<>]+\\>)+\\>)+\\>|\\([^\\(\\)]+\\)|\\{[^\\{\\}]+\\})+\\s*)?=\\s*)))|((\\[([^\\[\\]]|(\\[([^\\[\\]]|\\[[^\\[\\]]*\\])*\\]))*\\])\\s*((:\\s*\\[?$)|((\\s*([^<>\\(\\)\\{\\}]|\\<([^<>]|\\<([^<>]|\\<[^<>]+\\>)+\\>)+\\>|\\([^\\(\\)]+\\)|\\{[^\\{\\}]+\\})+\\s*)?=\\s*)))))) |\n    # sure shot arrow functions even if => is on new line\n(\n  (<\\s*([_$[:alpha:]]|(\\{([^\\{\\}]|(\\{([^\\{\\}]|\\{[^\\{\\}]*\\})*\\}))*\\})|(\\(([^\\(\\)]|(\\(([^\\(\\)]|\\([^\\(\\)]*\\))*\\)))*\\))|(\\[([^\\[\\]]|(\\[([^\\[\\]]|\\[[^\\[\\]]*\\])*\\]))*\\]))([^=<>]|=[^<]|\\<\\s*([_$[:alpha:]]|(\\{([^\\{\\}]|(\\{([^\\{\\}]|\\{[^\\{\\}]*\\})*\\}))*\\})|(\\(([^\\(\\)]|(\\(([^\\(\\)]|\\([^\\(\\)]*\\))*\\)))*\\))|(\\[([^\\[\\]]|(\\[([^\\[\\]]|\\[[^\\[\\]]*\\])*\\]))*\\]))([^=<>]|=[^<]|\\<\\s*([_$[:alpha:]]|(\\{([^\\{\\}]|(\\{([^\\{\\}]|\\{[^\\{\\}]*\\})*\\}))*\\})|(\\(([^\\(\\)]|(\\(([^\\(\\)]|\\([^\\(\\)]*\\))*\\)))*\\))|(\\[([^\\[\\]]|(\\[([^\\[\\]]|\\[[^\\[\\]]*\\])*\\]))*\\]))([^=<>]|=[^<])*\\>)*\\>)*>\\s*)?\n  [(]\\s*(\\/\\*([^\\*]|(\\*[^\\/]))*\\*\\/\\s*)*\n  (\n    ([)]\\s*:) |                                                                                       # ():\n    ((\\.\\.\\.\\s*)?[_$[:alpha:]][_$[:alnum:]]*\\s*:)                                                                  # [(]param: | [(]...param:\n  )\n) |\n(\n  [<]\\s*[_$[:alpha:]][_$[:alnum:]]*\\s+extends\\s*[^=>]                                                              # < typeparam extends\n) |\n# arrow function possible to detect only with => on same line\n(\n  (<\\s*([_$[:alpha:]]|(\\{([^\\{\\}]|(\\{([^\\{\\}]|\\{[^\\{\\}]*\\})*\\}))*\\})|(\\(([^\\(\\)]|(\\(([^\\(\\)]|\\([^\\(\\)]*\\))*\\)))*\\))|(\\[([^\\[\\]]|(\\[([^\\[\\]]|\\[[^\\[\\]]*\\])*\\]))*\\]))([^=<>]|=[^<]|\\<\\s*([_$[:alpha:]]|(\\{([^\\{\\}]|(\\{([^\\{\\}]|\\{[^\\{\\}]*\\})*\\}))*\\})|(\\(([^\\(\\)]|(\\(([^\\(\\)]|\\([^\\(\\)]*\\))*\\)))*\\))|(\\[([^\\[\\]]|(\\[([^\\[\\]]|\\[[^\\[\\]]*\\])*\\]))*\\]))([^=<>]|=[^<]|\\<\\s*([_$[:alpha:]]|(\\{([^\\{\\}]|(\\{([^\\{\\}]|\\{[^\\{\\}]*\\})*\\}))*\\})|(\\(([^\\(\\)]|(\\(([^\\(\\)]|\\([^\\(\\)]*\\))*\\)))*\\))|(\\[([^\\[\\]]|(\\[([^\\[\\]]|\\[[^\\[\\]]*\\])*\\]))*\\]))([^=<>]|=[^<])*\\>)*\\>)*>\\s*)?                                                                                 # typeparameters\n  \\(\\s*(\\/\\*([^\\*]|(\\*[^\\/]))*\\*\\/\\s*)*(([_$[:alpha:]]|(\\{([^\\{\\}]|(\\{([^\\{\\}]|\\{[^\\{\\}]*\\})*\\}))*\\})|(\\[([^\\[\\]]|(\\[([^\\[\\]]|\\[[^\\[\\]]*\\])*\\]))*\\])|(\\.\\.\\.\\s*[_$[:alpha:]]))([^()\\'\\\"\\`]|(\\(([^\\(\\)]|(\\(([^\\(\\)]|\\([^\\(\\)]*\\))*\\)))*\\))|(\\'([^\\'\\\\]|\\\\.)*\\')|(\\\"([^\\\"\\\\]|\\\\.)*\\\")|(\\`([^\\`\\\\]|\\\\.)*\\`))*)?\\)   # parameters\n  (\\s*:\\s*([^<>\\(\\)\\{\\}]|\\<([^<>]|\\<([^<>]|\\<[^<>]+\\>)+\\>)+\\>|\\([^\\(\\)]+\\)|\\{[^\\{\\}]+\\})+)?                                                                        # return type\n  \\s*=>                                                                                               # arrow operator\n)\n  ))\n))",
+					"captures": {
+						"1": {
+							"name": "punctuation.accessor.js"
+						},
+						"2": {
+							"name": "punctuation.accessor.optional.js"
+						},
+						"3": {
+							"name": "entity.name.function.js"
+						}
+					}
+				},
+				{
+					"match": "(?:(\\.)|(\\?\\.(?!\\s*[[:digit:]])))\\s*(\\#?[[:upper:]][_$[:digit:][:upper:]]*)(?![_$[:alnum:]])",
+					"captures": {
+						"1": {
+							"name": "punctuation.accessor.js"
+						},
+						"2": {
+							"name": "punctuation.accessor.optional.js"
+						},
+						"3": {
+							"name": "variable.other.constant.property.js"
+						}
+					}
+				},
+				{
+					"match": "(?:(\\.)|(\\?\\.(?!\\s*[[:digit:]])))\\s*(\\#?[_$[:alpha:]][_$[:alnum:]]*)",
+					"captures": {
+						"1": {
+							"name": "punctuation.accessor.js"
+						},
+						"2": {
+							"name": "punctuation.accessor.optional.js"
+						},
+						"3": {
+							"name": "variable.other.property.js"
+						}
+					}
+				},
+				{
+					"name": "variable.other.constant.js",
+					"match": "([[:upper:]][_$[:digit:][:upper:]]*)(?![_$[:alnum:]])"
+				},
+				{
+					"name": "variable.other.readwrite.js",
+					"match": "[_$[:alpha:]][_$[:alnum:]]*"
+				}
+			]
+		}
+	},
+	"scopeName": "source.nya"
+}

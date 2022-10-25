@@ -1,0 +1,25 @@
+{
+  "name": "NyaScript",
+  "displayName": "nya_script_vsc_support",
+  "description": "Basic Language Support For NyaScript in VSCode",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.72.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "nyascript",
+      "aliases": ["NyaScript", "nyascript"],
+      "extensions": [".nya",".ns",".njs",".js"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "nyascript",
+      "scopeName": "source.nya",
+      "path": "./syntaxes/nyascript.tmLanguage.json"
+    }]
+  }
+}

@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="OldVersion\**" />
+    <EmbeddedResource Remove="OldVersion\**" />
+    <None Remove="OldVersion\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="cfg.json" />
+    <None Remove="jsonGrid - Json可视化工具.url" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Customized\" />
+  </ItemGroup>
+
+</Project>
