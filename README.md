@@ -31,7 +31,7 @@
     };
     
     function run_fib() { 
-        for(var i = 1; i <= 25; ++i){
+        for(var i = 1; i <= 25; ++i)
             print (fib(i));
     }
         
@@ -72,7 +72,7 @@ statment ;
 ```js
 var a;
 var b = 1;
-var c = "hello " + "world!";
+var c = "Ciallo " + "World!";
 ```
 你可以使用类似`=`, `+=`, `++`等 **赋值操作符** 修改一个变量的值，例如
 ```js
@@ -113,7 +113,7 @@ pi = 3; // => Error：非法的赋值目标
 NyaScript 不允许隐式变量声明，无论是变量还是常量都应当在 **声明后引用**：
 ```js
 // 'value' 是一个未声明的变量
-value = 1919; // Error：未声明的变量
+value = 196883; // Error：未声明的变量
 ```
 
 <br>
@@ -127,7 +127,7 @@ function say_something(something){
     print(something);
 }
 
-say_something("AhAhAhAhhhhhhh!"); // => AhAhAhAhhhhhhh!
+say_something("Ciallo～ (∠・ω< )⌒☆"); // => Ciallo～ (∠・ω< )⌒☆
 ```
 
 [^2]: 事实上，这种声明恰恰是 Lambda 函数的一个*语法糖*，这个语句声明了一个 Lambda 函数，然后将其赋值给与声明的函数名同名的变量.
@@ -304,7 +304,7 @@ print(name); // => Error: 标识符未定义
 ```js
 /* mio-ev10-3.nya */
 
-// Gloable
+// Global
 let MioLoveProgressInprovementViaEv103 = 10; // 由事件 10-3 提供的好感度上升量
 var Ev103Trigger = false; // 事件的触发开关，如果玩家经历了 ev11-1，则在那个脚本中将该变量置为 true
 
